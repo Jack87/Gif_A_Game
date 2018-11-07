@@ -53,6 +53,16 @@ function displayGifs() {
         // Saving the image_original_url property
         // var imageUrl = response.data.image_original_url;
         var imageUrl = response.data.images.downsized_still.url;
+        // Store this into varable first then we can prepend it. Need to put image into it. 
+        $("#images").html(' <div class="card col-6" style="width: 18rem;"> \
+            <div class="card-body"> \
+                <h5 class="card-title">Card title</h5> \
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> \
+                <p class="card-text">Some quick example text to build on the card title and \ make up the bulk of the cards content.</p> \
+                <a href="#" class="card-link">Card link</a> \
+                <a href="#" class="card-link">Another link</a> \
+            </div> \
+        </div> ')
 
         // Creating and storing an image tag
         var topicImage = $("<img>")
