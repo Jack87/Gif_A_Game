@@ -15,7 +15,23 @@ $(document).on("click", ".topicImg", function(){
 // $(".topicImg").on("click", function() {
 //     toggleAnimate(this);
 //   });
-
+function toggleAnimate(img) {
+    // Grab url of the clicked image
+    var clickSRC = $(img).attr("src");
+    console.log(clickSRC);
+    // Does it have "_s.gif"?
+    if (clickSRC.search("_s.gif") != -1) {
+        console.log(clickSRC.search("_.gif"))
+        clickSRC = clickSRC.replace("_s.gif", ".gif");
+        console.log(clickSRC);
+    } else {
+        clickSRC = clickSRC.replace(".gif", "_s.gif");
+        console.log(clickSRC);
+    }
+    // Update image src
+    $(img).attr("src", clickSRC);
+  
+  }
 function displayGifs() {
 
     var gifSearch = $(this).attr("data-name");
