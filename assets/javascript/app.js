@@ -5,7 +5,7 @@ var topics = ["Nintendo", "Playstation", "xBox", "PC Gaming", "Blizzard Entertai
 renderButtons()
 
 
-// Event listener for buttons
+// Event listeners for buttons
 $(document).on("click", ".topic-btn", displayGifs);
 
 $(document).on("click", ".topicImg", function(){
@@ -36,6 +36,11 @@ function displayGifs() {
 
     var gifSearch = $(this).attr("data-name");
     // var queryURL = "https://www.omdbapi.com/?t=" + gif + "&y=&plot=short&apikey=trilogy";
+    // Storing parts of API call construct
+    var baseURL = "https://api.giphy.com/v1/gifs/search?"
+    apiKey = "8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&"
+
+    //https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=10&rating=&q=gta
     // Storing our giphy API URL for a topic image
     var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + gifSearch;
     // var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=1&rating=" + "" + "&q=" + gifSearch
@@ -50,12 +55,13 @@ function displayGifs() {
         var imageUrl = response.data.images.downsized_still.url;
 
         // Creating and storing an image tag
-        var topicImage = $("<img>");
+        var topicImage = $("<img>")
         
         // Setting the topicImage src attribute to imageUrl
-        topicImage.attr("src", imageUrl);
-        topicImage.attr("alt", "game image");
-        topicImage.addClass("topicImg")
+        .attr("src", imageUrl)
+        .attr("alt", "game image")
+        .addClass("topicImg")
+        .addClass("col-4");
 
         // Prepending the topicImage to the images div
         $("#images").prepend(topicImage);
