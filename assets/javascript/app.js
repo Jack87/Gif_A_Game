@@ -61,7 +61,7 @@ function displayGifs() {
         .attr("src", imageUrl)
         .attr("alt", "game image")
         .addClass("topicImg")
-        .addClass("col-4");
+        .addClass("col-6");
 
         // Prepending the topicImage to the images div
         $("#images").prepend(topicImage);
