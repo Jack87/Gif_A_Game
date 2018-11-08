@@ -10,14 +10,18 @@ renderButtons()
 $(document).on("click", ".topic-btn", displayGifs);
 
 $(document).on("click", ".topicImg", function(){
-    toggleAnimate(this)
+    toggleAnimate(this);
 });
 
 $(document).on("click", ".rating-btn", function(){
-    r = $(this).data('rating')
+    r = $(this).data('rating');
     $(".rating-btn").removeClass("active");
     $(this).addClass("active");
-})
+});
+$(document).on("change", "#inputGroupSelect", function(){
+    l = $(this).val();
+    console.log($(this).val());
+});
 
 // $(".topicImg").on("click", function() {
 //     toggleAnimate(this);
@@ -72,8 +76,8 @@ function displayGifs() {
                     <h5 class="card-title">Card title</h5> \
                     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> \
                     <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
-                    <a href="#" class="card-link">Card link</a> \
-                    <a href="#" class="card-link">Another link</a> \
+                    <a href="' + response.data[i].url + '" class="card-link">Giphy link</a> \
+                    <a href="' + response.data[i].embed_url + '" class="card-link">Embed link</a> \
                 </div> \
             </div> ')
             $("#images").prepend(topicCard);
