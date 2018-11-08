@@ -54,27 +54,27 @@ function displayGifs() {
         // var imageUrl = response.data.image_original_url;
         var imageUrl = response.data.images.downsized_still.url;
         // Store this into varable first then we can prepend it. Need to put image into it. 
-        $("#images").html(' <div class="card col-6" style="width: 18rem;"> \
-            <div class="card-body"> \
+        var topicCard = $("<div>").addClass("card col")
+        topicCard.html('<div class="card-body"> \
                 <h5 class="card-title">Card title</h5> \
                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> \
-                <p class="card-text">Some quick example text to build on the card title and \ make up the bulk of the cards content.</p> \
+                <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
                 <a href="#" class="card-link">Card link</a> \
                 <a href="#" class="card-link">Another link</a> \
             </div> \
         </div> ')
-
-        // Creating and storing an image tag
-        var topicImage = $("<img>")
+        $("#images").prepend(topicCard);
+        // // Creating and storing an image tag
+        // var topicImage = $("<img>")
         
-        // Setting the topicImage src attribute to imageUrl
-        .attr("src", imageUrl)
-        .attr("alt", "game image")
-        .addClass("topicImg")
-        .addClass("col-6");
+        // // Setting the topicImage src attribute to imageUrl
+        // .attr("src", imageUrl)
+        // .attr("alt", "game image")
+        // .addClass("topicImg")
+        // .addClass("col-6");
 
-        // Prepending the topicImage to the images div
-        $("#images").prepend(topicImage);
+        // // Prepending the topicImage to the images div
+        // $("#images").prepend(topicImage);
     });
   }
 // Function for displaying topic buttons
