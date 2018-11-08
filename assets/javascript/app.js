@@ -21,7 +21,7 @@ function toggleAnimate(img) {
     console.log(clickSRC);
     // Does it have "_s.gif"?
     if (clickSRC.search("_s.gif") != -1) {
-        console.log(clickSRC.search("_.gif"))
+        console.log(clickSRC.search("_s.gif"))
         clickSRC = clickSRC.replace("_s.gif", ".gif");
         console.log(clickSRC);
     } else {
@@ -35,16 +35,22 @@ function toggleAnimate(img) {
 function displayGifs() {
 
     var gifSearch = $(this).attr("data-name");
+    var l = 10;
+    var r = "r";
     // var queryURL = "https://www.omdbapi.com/?t=" + gif + "&y=&plot=short&apikey=trilogy";
     // Storing parts of API call construct
-    var baseURL = "https://api.giphy.com/v1/gifs/search?"
-    apiKey = "8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&"
-
+    var baseURL = "https://api.giphy.com/v1/gifs/search?";
+    var apiKey = "api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&";
+    var q = "q=" + gifSearch + "&";
+    var rating= "rating=" + r + "&";
+    var limit = "limit=" + l + "&";
+    queryURL = baseURL + apiKey + q + rating + limit
+    console.log(queryURL)
     //https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=10&rating=&q=gta
     // Storing our giphy API URL for a topic image
-    var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + gifSearch;
+    // var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + gifSearch;
     // var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=1&rating=" + "" + "&q=" + gifSearch
-
+    
     $.ajax({
       url: queryURL,
       method: "GET"
@@ -52,9 +58,9 @@ function displayGifs() {
         console.log(response);
         // Saving the image_original_url property
         // var imageUrl = response.data.image_original_url;
-        var imageUrl = response.data.images.downsized_still.url;
+        var imageUrl = response.data[1].images.downsized_still.url;
         // Store this into varable first then we can prepend it. Need to put image into it. 
-        var topicCard = $("<div>").addClass("card col")
+        var topicCard = $("<div>").addClass("card col-6")
         topicCard.html('<div class="card-body"> \
                 <h5 class="card-title">Card title</h5> \
                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> \
