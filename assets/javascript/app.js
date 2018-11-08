@@ -56,20 +56,22 @@ function displayGifs() {
       method: "GET"
     }).then(function(response) {
         console.log(response);
-        // Saving the image_original_url property
-        // var imageUrl = response.data.image_original_url;
-        var imageUrl = response.data[1].images.downsized_still.url;
-        // Store this into varable first then we can prepend it. Need to put image into it. 
-        var topicCard = $("<div>").addClass("card col-6")
-        topicCard.html('<div class="card-body"> \
-                <h5 class="card-title">Card title</h5> \
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> \
-                <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
-                <a href="#" class="card-link">Card link</a> \
-                <a href="#" class="card-link">Another link</a> \
-            </div> \
-        </div> ')
-        $("#images").prepend(topicCard);
+
+        for (var i = 0; i < l; i++) {
+            // Saving the image_original_url property
+            var imageUrl = response.data[i].images.downsized_still.url;
+            // Store this into varable first then we can prepend it. Need to put image into it. 
+            var topicCard = $("<div>").addClass("card col-6")
+            topicCard.html('<div class="card-body"> \
+                    <h5 class="card-title">Card title</h5> \
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> \
+                    <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
+                    <a href="#" class="card-link">Card link</a> \
+                    <a href="#" class="card-link">Another link</a> \
+                </div> \
+            </div> ')
+            $("#images").prepend(topicCard);
+        }
         // // Creating and storing an image tag
         // var topicImage = $("<img>")
         
@@ -111,6 +113,8 @@ function renderButtons() {
         // event.preventDefault() prevents the form from trying to submit itself.
         // We're using a form so that the user can hit enter instead of clicking the button if they want
         event.preventDefault();
+        var rateVal = $("#button-addon3").val().trim();
+        console.log(rateVal)
 
         // This line will grab the text from the input box
         var topic = $("#topic-input").val().trim();
