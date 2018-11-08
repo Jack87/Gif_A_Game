@@ -1,7 +1,8 @@
 //API Key 8PZUG6VpbkmEyObiRifjjEe2wWO8u09t
 // Initial array of topics.
 var topics = ["Nintendo", "Playstation", "xBox", "PC Gaming", "Blizzard Entertainment", "Rockstar Games", "StarCraft 2", "Diablo III", "GTA5", "Fallout 4", "Overwatch"]
-
+var l = 10;
+var r = "r";
 renderButtons()
 
 
@@ -11,6 +12,12 @@ $(document).on("click", ".topic-btn", displayGifs);
 $(document).on("click", ".topicImg", function(){
     toggleAnimate(this)
 });
+
+$(document).on("click", ".rating-btn", function(){
+    r = $(this).data('rating')
+    $(".rating-btn").removeClass("active");
+    $(this).addClass("active");
+})
 
 // $(".topicImg").on("click", function() {
 //     toggleAnimate(this);
@@ -35,8 +42,7 @@ function toggleAnimate(img) {
 function displayGifs() {
 
     var gifSearch = $(this).attr("data-name");
-    var l = 10;
-    var r = "r";
+
     // var queryURL = "https://www.omdbapi.com/?t=" + gif + "&y=&plot=short&apikey=trilogy";
     // Storing parts of API call construct
     var baseURL = "https://api.giphy.com/v1/gifs/search?";
