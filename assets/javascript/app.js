@@ -3,16 +3,15 @@
 var topics = ["Nintendo", "Playstation", "xBox", "PC Gaming", "Blizzard Entertainment", "Rockstar Games", "StarCraft 2", "Diablo III", "GTA5", "Fallout 4", "Overwatch"]
 var l = 10;
 var r = "r";
+var random = "search?";
 renderButtons()
 
 
 // Event listeners for buttons
 $(document).on("click", ".topic-btn", displayGifs);
-
 $(document).on("click", ".topicImg", function(){
     toggleAnimate(this);
 });
-
 $(document).on("click", ".rating-btn", function(){
     r = $(this).data('rating');
     $(".rating-btn").removeClass("active");
@@ -22,10 +21,23 @@ $(document).on("change", "#inputGroupSelect", function(){
     l = $(this).val();
     console.log($(this).val());
 });
+$(document).on("click", ".randomize-btn", function(){
+    var randomBtn = this;
+    if ($(randomBtn).attr("data-random") == "true") {
+        $(randomBtn).attr("data-random", "false");
+        random = "search?";
+        $(randomBtn).removeClass("active");
+        $(randomBtn).text("Not Random");
+    } else {
+        $(randomBtn).attr("data-random", "true");
+        random = "random?";
+        $(randomBtn).addClass("active");
+        $(randomBtn).text("Random");
+    };
+    console.log("Random? " + $(randomBtn).attr("data-random"));
+});
 
-// $(".topicImg").on("click", function() {
-//     toggleAnimate(this);
-//   });
+// Toggle Animation of gif
 function toggleAnimate(img) {
     // Grab url of the clicked image
     var clickSRC = $(img).attr("src");
@@ -44,56 +56,70 @@ function toggleAnimate(img) {
   
   }
 function displayGifs() {
-
     var gifSearch = $(this).attr("data-name");
-
-    // var queryURL = "https://www.omdbapi.com/?t=" + gif + "&y=&plot=short&apikey=trilogy";
     // Storing parts of API call construct
-    var baseURL = "https://api.giphy.com/v1/gifs/search?";
-    var apiKey = "api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&";
+    // var baseURL = "https://api.giphy.com/v1/gifs/search?";
+    var baseURL = "https://api.giphy.com/v1/gifs/";
+    // var apiKey = "api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&";
+    var apiKey = "api_key=8101kMpoOkY0OZMCiLrDyGMG8NpAJ4eQ&";
+    var isRandom = random;
     var q = "q=" + gifSearch + "&";
     var rating= "rating=" + r + "&";
     var limit = "limit=" + l + "&";
-    queryURL = baseURL + apiKey + q + rating + limit
+    queryURL = baseURL + isRandom + apiKey + q + rating + limit
     console.log(queryURL)
     //https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=10&rating=&q=gta
     // Storing our giphy API URL for a topic image
     // var queryURL = "https://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC&tag=" + gifSearch;
     // var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=1&rating=" + "" + "&q=" + gifSearch
-    
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(function(response) {
-        console.log(response);
-
+    if (random == "search?"){
+        console.log(queryURL)
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+          }).then(function(response) {
+              console.log(response);
+              for (var i = 0; i < l; i++) {
+                  // Saving the image_original_url property
+                  var imageUrl = response.data[i].images.downsized_still.url;
+                  // Store this into varable first then we can prepend it. Need to put image into it. 
+                  var topicCard = $("<div>").addClass("card col-6")
+                  topicCard.html('<div class="card-body"> \
+                          <h5 class="card-title">Card title</h5> \
+                          <h6 class="card-subtitle mb-2 text-muted">Rating: ' + response.data[i].rating.toUpperCase() + '</h6> \
+                          <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
+                          <a href="' + response.data[i].url + '" class="card-link">Giphy link</a> \
+                          <a href="' + response.data[i].embed_url + '" class="card-link">Embed link</a> \
+                      </div> \
+                  </div> ')
+                  $("#images").prepend(topicCard);
+              }
+          });
+    } else {
         for (var i = 0; i < l; i++) {
-            // Saving the image_original_url property
-            var imageUrl = response.data[i].images.downsized_still.url;
-            // Store this into varable first then we can prepend it. Need to put image into it. 
-            var topicCard = $("<div>").addClass("card col-6")
-            topicCard.html('<div class="card-body"> \
-                    <h5 class="card-title">Card title</h5> \
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> \
-                    <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
-                    <a href="' + response.data[i].url + '" class="card-link">Giphy link</a> \
-                    <a href="' + response.data[i].embed_url + '" class="card-link">Embed link</a> \
-                </div> \
-            </div> ')
-            $("#images").prepend(topicCard);
+            console.log(queryURL)
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response) {
+                console.log(response);
+                // Saving the image_original_url property
+                var imageUrl = response.data.images.downsized_still.url;
+                // Store this into varable first then we can prepend it. Need to put image into it. 
+                var topicCard = $("<div>").addClass("card col-6")
+                topicCard.html('<div class="card-body"> \
+                        <h5 class="card-title">Card title</h5> \
+                        <h6 class="card-subtitle mb-2 text-muted">Rating: ' + "" + '</h6> \
+                        <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
+                        <a href="' + response.data.url + '" class="card-link">Giphy link</a> \
+                        <a href="' + response.data.embed_url + '" class="card-link">Embed link</a> \
+                    </div> \
+                </div> ')
+                $("#images").prepend(topicCard);
+            });
         }
-        // // Creating and storing an image tag
-        // var topicImage = $("<img>")
-        
-        // // Setting the topicImage src attribute to imageUrl
-        // .attr("src", imageUrl)
-        // .attr("alt", "game image")
-        // .addClass("topicImg")
-        // .addClass("col-6");
+    };
 
-        // // Prepending the topicImage to the images div
-        // $("#images").prepend(topicImage);
-    });
   }
 // Function for displaying topic buttons
 function renderButtons() {
