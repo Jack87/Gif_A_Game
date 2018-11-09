@@ -62,10 +62,10 @@ function displayGifs() {
     var baseURL = "https://api.giphy.com/v1/gifs/";
     // var apiKey = "api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&";
     var apiKey = "api_key=8101kMpoOkY0OZMCiLrDyGMG8NpAJ4eQ&";
-    var isRandom = random;
+    var isRandom = random; // https://developers.giphy.com/explorer/
     var q = "q=" + gifSearch + "&";
     var rating= "rating=" + r + "&";
-    var limit = "limit=" + l + "&";
+    var limit = "limit=" + l + "&"; 
     queryURL = baseURL + isRandom + apiKey + q + rating + limit
     console.log(queryURL)
     //https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=10&rating=&q=gta
