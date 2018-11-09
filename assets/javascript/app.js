@@ -44,7 +44,6 @@ function toggleAnimate(img) {
     console.log(clickSRC);
     // Does it have "_s.gif"?
     if (clickSRC.search("_s.gif") != -1) {
-        console.log(clickSRC.search("_s.gif"))
         clickSRC = clickSRC.replace("_s.gif", ".gif");
         console.log(clickSRC);
     } else {
@@ -53,7 +52,6 @@ function toggleAnimate(img) {
     }
     // Update image src
     $(img).attr("src", clickSRC);
-  
   }
 function displayGifs() {
     var gifSearch = $(this).attr("data-name");
@@ -72,6 +70,7 @@ function displayGifs() {
     };
     var limit = "limit=" + l + "&"; 
     queryURL = baseURL + isRandom + apiKey + q + rating + limit
+    // queryURL = queryURL.trim().replace(/ /g,"%20");
     console.log(queryURL)
     //https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=10&rating=&q=gta
     // Storing our giphy API URL for a topic image
@@ -90,17 +89,17 @@ function displayGifs() {
                   // Store this into varable first then we can prepend it. Need to put image into it. 
                   var topicCard = $("<div>").addClass("card col-6")
                   topicCard.html('<div class="card-body"> \
-                          <h5 class="card-title">Card title</h5> \
+                          <h5 class="card-title">'+ gifSearch + '</h5> \
                           <h6 class="card-subtitle mb-2 text-muted">Rating: ' + response.data[i].rating.toUpperCase() + '</h6> \
                           <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
-                          <a href="' + response.data[i].url + '" class="card-link">Giphy link</a> \
-                          <a href="' + response.data[i].embed_url + '" class="card-link">Embed link</a> \
+                          <a href="' + response.data[i].url + '" class="card-link"><i class="fas fa-external-link-alt"></i> Giphy link</a> \
+                          <a href="' + response.data[i].embed_url + '" class="card-link"><i class="fas fa-code"></i> Share Embed link</a> \
                       </div> \
                   </div> ')
                   $("#images").prepend(topicCard);
               }
           });
-    } else {
+    } else { //Since Random doesn't have a limit parameter and only returns one Gif. Using a loop to retrive the total requested amounts of Gifs. 
         for (var i = 0; i < l; i++) {
             console.log(queryURL)
             $.ajax({
@@ -113,11 +112,11 @@ function displayGifs() {
                 // Store this into varable first then we can prepend it. Need to put image into it. 
                 var topicCard = $("<div>").addClass("card col-6")
                 topicCard.html('<div class="card-body"> \
-                        <h5 class="card-title">Card title</h5> \
+                        <h5 class="card-title">'+ gifSearch + '</h5> \
                         <!-- // <h6 class="card-subtitle mb-2 text-muted">Rating: ' + "" + '</h6> \ --> \
                         <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
-                        <a href="' + response.data.url + '" class="card-link">Giphy link</a> \
-                        <a href="' + response.data.embed_url + '" class="card-link">Embed link</a> \
+                        <a href="' + response.data.url + '" class="card-link"><i class="fas fa-external-link-alt"></i>Giphy link</a> \
+                        <a href="' + response.data.embed_url + '" class="card-link"><i class="fas fa-code"></i> Share Embed link</a> \
                         </div> ')
                 $("#images").prepend(topicCard);
             });
