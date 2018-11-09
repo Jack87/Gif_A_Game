@@ -66,6 +66,11 @@ function displayGifs() {
     var q = "q=" + gifSearch + "&";
     var rating= "rating=" + r + "&";
     var limit = "limit=" + l + "&"; 
+    if (random == "random?") {
+        q = "tag=" + gifSearch + "&";
+        limit = "limit=" + "" + "&"; 
+    };
+    var limit = "limit=" + l + "&"; 
     queryURL = baseURL + isRandom + apiKey + q + rating + limit
     console.log(queryURL)
     //https://api.giphy.com/v1/gifs/search?api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&limit=10&rating=&q=gta
@@ -109,12 +114,11 @@ function displayGifs() {
                 var topicCard = $("<div>").addClass("card col-6")
                 topicCard.html('<div class="card-body"> \
                         <h5 class="card-title">Card title</h5> \
-                        <h6 class="card-subtitle mb-2 text-muted">Rating: ' + "" + '</h6> \
+                        <!-- // <h6 class="card-subtitle mb-2 text-muted">Rating: ' + "" + '</h6> \ --> \
                         <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
                         <a href="' + response.data.url + '" class="card-link">Giphy link</a> \
                         <a href="' + response.data.embed_url + '" class="card-link">Embed link</a> \
-                    </div> \
-                </div> ')
+                        </div> ')
                 $("#images").prepend(topicCard);
             });
         }
