@@ -14,10 +14,12 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Game to Gif!</title>
 </head>
-<body class="bg-info">
-<div class="title">Game to Gif!</div>
+<body class="bg-light">
 
         <div class = "container">
+            <div class="title h1"><i class="fa fa-gamepad" aria-hidden="true"></i>
+              Game to Gif!</div>
+
           <!-- <div class="pageTitle"><img class="logo" src="./assets/images/ANYLogo.png" alt=""></div> -->
           
           <section id="display"> 
@@ -31,7 +33,7 @@
                   <button class="btn btn-outline-secondary rating-btn" data-rating="PG13" type="button">PG-13</button>
                   <button class="btn btn-outline-secondary rating-btn" data-rating="R" type="button">R</button>  
                 </div>
-                <select class="custom-select col-4" id="inputGroupSelect" aria-label="Example select with button addon">
+                <select class="custom-select col-4 col-xs-6 border-secondary" id="inputGroupSelect" aria-label="Example select with button addon">
                     <option class="gifLimit" value="10" selected>How many Gifs do you want to see?</option>
                     <option class="gifLimit" value="1">One</option>
                     <option class="gifLimit" value="2">Two</option>
@@ -40,16 +42,14 @@
                     <option class="gifLimit" value="16">Sixteen</option>
                     <option class="gifLimit" value="20">Twenty</option>
                 </select>
-                <div class="input-group-prepend" id="randomize-button">
-                  <button class="btn btn-outline-secondary randomize-btn" id="randomBtn" data-random="no" type="button">Not Randomized</button>
-                </div>
-
-                
+                <!-- <div class="input-group-apend" id="randomize-button"> -->
+                  <button class="btn btn-outline-secondary randomize-btn" id="randomBtn" data-random="no" type="button"><i class="fa fa-random" aria-hidden="true"></i> Not Randomized</button>
+                <!-- </div>                 -->
               </div>
               <!-- Input for putting in custom topic -->
               <input type="text" id="topic-input" class="form-control" placeholder="Add a Game, Yo!">
               <!-- Button triggers new topic to be added -->
-              <input id="add-topic" class="btn btn-outline-secondary" type="submit" value="Add It!">
+              <button id="add-topic" class="btn btn-outline-secondary m-1" type="submit" value="Add It!"><i class="fa fa-plus" aria-hidden="true"></i> Add It! </button>
             </form>
             <!-- This row will handle all of the retrieved articles -->
             <div class="row">
@@ -60,7 +60,7 @@
                   <!-- card Heading for the retrieved articles box -->
                   <div class="card-header">
                     <strong>
-                      <i class="fas fa-film"></i>Gifs Live Here</strong>
+                      <i class="fas fa-film"></i> Gifs Live Here</strong>
                   </div>
                   <!-- This main card will hold each of the resulting articles -->
                   <div class="card-body row" id="images">

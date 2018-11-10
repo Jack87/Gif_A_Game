@@ -1,6 +1,6 @@
 //API Key 8PZUG6VpbkmEyObiRifjjEe2wWO8u09t
 // Initial array of topics.
-var topics = ["Nintendo", "Playstation", "xBox", "PC Gaming", "Blizzard Entertainment", "Rockstar Games", "StarCraft 2", "Diablo III", "GTA5", "Fallout 4", "Overwatch"]
+var topics = ["Nintendo", "Playstation", "xBox", "PC Gaming", "Blizzard Entertainment", "Rockstar Games", "StarCraft 2", "Diablo III", "GTA5", "Fallout 4", "Overwatch", "Mario", "PacMan", "Tetris", "Space Invadors", "Street Fighter", "Donkey Kong", "Moral Kombat", "Zelda", "Tomb Raider"]
 var l = 10;
 var r = "r";
 var random = "search?";
@@ -27,12 +27,12 @@ $(document).on("click", ".randomize-btn", function(){
         $(randomBtn).attr("data-random", "false");
         random = "search?";
         $(randomBtn).removeClass("active");
-        $(randomBtn).text("Not Random");
+        $(randomBtn).html('<i class="fa fa-random" aria-hidden="true"></i> Not Random');
     } else {
         $(randomBtn).attr("data-random", "true");
         random = "random?";
         $(randomBtn).addClass("active");
-        $(randomBtn).text("Random");
+        $(randomBtn).html('<i class="fa fa-random" aria-hidden="true"></i> Random');
     };
     console.log("Random? " + $(randomBtn).attr("data-random"));
 });
@@ -42,7 +42,6 @@ function toggleAnimate(img) {
     // Grab url of the clicked image
     var clickSRC = $(img).attr("src");
     console.log(clickSRC);
-    // Does it have "_s.gif"?
     if (clickSRC.search("_s.gif") != -1) {
         clickSRC = clickSRC.replace("_s.gif", ".gif");
         console.log(clickSRC);
@@ -85,9 +84,9 @@ function displayGifs() {
               console.log(response);
               for (var i = 0; i < l; i++) {
                   // Saving the image_original_url property
-                  var imageUrl = response.data[i].images.downsized_still.url;
+                  var imageUrl = response.data[i].images.fixed_height_still.url;
                   // Store this into varable first then we can prepend it. Need to put image into it. 
-                  var topicCard = $("<div>").addClass("card col-6")
+                  var topicCard = $("<div>").addClass("card col-lg-4 col-md-6 col-xs-12")
                   topicCard.html('<div class="card-body"> \
                           <h5 class="card-title">'+ gifSearch + '</h5> \
                           <h6 class="card-subtitle mb-2 text-muted">Rating: ' + response.data[i].rating.toUpperCase() + '</h6> \
@@ -110,7 +109,7 @@ function displayGifs() {
                 // Saving the image_original_url property
                 var imageUrl = response.data.images.downsized_still.url;
                 // Store this into varable first then we can prepend it. Need to put image into it. 
-                var topicCard = $("<div>").addClass("card col-6")
+                var topicCard = $("<div>").addClass("card col-lg-4 col-md-6 col-xs-12")
                 topicCard.html('<div class="card-body"> \
                         <h5 class="card-title">'+ gifSearch + '</h5> \
                         <!-- // <h6 class="card-subtitle mb-2 text-muted">Rating: ' + "" + '</h6> \ --> \
@@ -133,11 +132,10 @@ function renderButtons() {
 
         // Looping through the array of topics
         for (var i = 0; i < topics.length; i++) {
-
             // Then dynamicaly generating buttons for each topic in the array.
             var a = $("<button>");
             // Adding a class
-            a.addClass("topic-btn btn btn-outline-secondary");
+            a.addClass("topic-btn btn btn-outline-secondary m-1");
             // Adding a data-attribute with a value of the topic at index i
             a.attr("data-name", topics[i]);
             // Providing the button's text with a value of the topic at index i
@@ -149,17 +147,19 @@ function renderButtons() {
 
       // This function handles events where one button is clicked
       $("#add-topic").on("click", function(event) {
-        // event.preventDefault() prevents the form from trying to submit itself.
-        // We're using a form so that the user can hit enter instead of clicking the button if they want
         event.preventDefault();
-        var rateVal = $("#button-addon3").val().trim();
+        var rateVal = $("#button-addon3").val();
         console.log(rateVal)
 
         // This line will grab the text from the input box
         var topic = $("#topic-input").val().trim();
         // The topic from the textbox is then added to our array
+        if (topics.indexOf(topic) != -1){
+            alert("That button already exists. Add a different one!")
+            return;
+        }
         topics.push(topic);
-
         // calling renderButtons which handles the processing of our topic array
         renderButtons();
-      });
+
+    });
