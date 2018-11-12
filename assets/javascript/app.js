@@ -15,6 +15,11 @@ $(document).on("click", ".topic-btn", function(){
         if (index > -1) {topics.splice(index, 1)};
         console.log($(this).attr("data-name") + " was removed.")
         $(this).remove();
+        if (topics.length < 1){
+            alert("You don't have anymore search buttons. \nAdd more to search Gifs; \nor just so you can remove it again.");
+            $("#topic-input").focus();
+            return;
+        }
     } else {   
         displayGifs(this);
     };
@@ -64,7 +69,6 @@ $(document).on("click", "#remove-topics", function(){
 $("#add-topic").on("click", function(event) {
     event.preventDefault();
     var topic = $("#topic-input").val().trim();
-    console.log(topic);
     if (topic == ""){
         alert("Enter something to add it!");
         $("#topic-input").val('').focus();
@@ -85,6 +89,7 @@ $("#add-topic").on("click", function(event) {
     topics.push(topic);
     // calling renderButtons which handles the processing of our topic array
     renderButtons();
+    console.log(topic + " was added.")
     $('#topic-input').val('');
 });
 // Toggle Animation of gif
