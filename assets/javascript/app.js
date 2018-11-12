@@ -94,8 +94,8 @@ function displayGifs() {
                           <h5 class="card-title">'+ gifSearch + '</h5> \
                           <h6 class="card-subtitle mb-2 text-muted">Rating: ' + response.data[i].rating.toUpperCase() + '</h6> \
                           <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
-                          <a href="' + response.data[i].url + '" class="card-link"><i class="fas fa-external-link-alt"></i> Giphy link</a> \
-                          <a href="' + response.data[i].embed_url + '" class="card-link"><i class="fas fa-code"></i> Share Embed link</a> \
+                          <a href="' + response.data[i].url + '" class="card-link" target="_blank"><i class="fas fa-external-link-alt"></i> Giphy link</a> \
+                          <a href="' + response.data[i].embed_url + '" class="card-link" target="_blank"><i class="fas fa-code"></i> Share Embed link</a> \
                       </div> \
                   </div> ')
                   $("#images").prepend(topicCard);
@@ -120,8 +120,8 @@ function displayGifs() {
                         <h5 class="card-title">'+ gifSearch + '</h5> \
                         <!-- // <h6 class="card-subtitle mb-2 text-muted">Rating: ' + "" + '</h6> \ --> \
                         <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
-                        <a href="' + response.data.url + '" class="card-link"><i class="fas fa-external-link-alt"></i>Giphy link</a> \
-                        <a href="' + response.data.embed_url + '" class="card-link"><i class="fas fa-code"></i> Share Embed link</a> \
+                        <a href="' + response.data.url + '" class="card-link" target="_blank"><i class="fas fa-external-link-alt"></i>Giphy link</a> \
+                        <a href="' + response.data.embed_url + '" class="card-link" target="_blank"><i class="fas fa-code"></i> Share Embed link</a> \
                         </div> ')
                 $("#images").prepend(topicCard);
                 // console.log(gifURL);

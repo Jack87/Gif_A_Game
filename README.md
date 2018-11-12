@@ -5,5 +5,6 @@ Learning to use API for class making a site for users to request keywords for Gi
 User can select pre configured buttons that search a term using giphy api to display results.
 User can also add their own buttons.
 User has option to display random gifs.
+User cannot create a button that already exists. 
 
 [Click here to use app now!](https://jack87.github.io/Gif_A_Game/)
