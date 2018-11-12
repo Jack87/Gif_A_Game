@@ -9,7 +9,13 @@ renderButtons()
 
 
 // Event listeners for buttons
-$(document).on("click", ".topic-btn", displayGifs);
+$(document).on("click", ".topic-btn", function(){
+    if ($("#remove-topics").attr("data-random") == "true") {
+        $(this).remove();
+    } else {   
+        displayGifs(this);
+    };
+});
 $(document).on("click", ".topicImg", function(){
     toggleAnimate(this);
 });
@@ -23,6 +29,7 @@ $(document).on("change", "#inputGroupSelect", function(){
     console.log($(this).val());
 });
 $(document).on("click", ".randomize-btn", function(){
+    event.preventDefault();
     var randomBtn = this;
     if ($(randomBtn).attr("data-random") == "true") {
         $(randomBtn).attr("data-random", "false");
@@ -36,6 +43,19 @@ $(document).on("click", ".randomize-btn", function(){
         $(randomBtn).html('<i class="fa fa-random" aria-hidden="true"></i> Random');
     };
     console.log("Random? " + $(randomBtn).attr("data-random"));
+});
+$(document).on("click", "#remove-topics", function(){
+    var removeBtn = this;
+    if ($(removeBtn).attr("data-random") == "true") {
+        $(removeBtn).attr("data-random", "false");
+        $(removeBtn).removeClass("active");
+        $(removeBtn).html('<i class="fa fa-minus" aria-hidden="true"></i> Removal Off');
+    } else {
+        $(removeBtn).attr("data-random", "true");
+        $(removeBtn).addClass("active");
+        $(removeBtn).html('<i class="fa fa-minus" aria-hidden="true"></i> Removal On');
+    };
+    console.log("Remove topics: " + $(removeBtn).attr("data-random"));
 });
 
 // Toggle Animation of gif
@@ -53,8 +73,8 @@ function toggleAnimate(img) {
     // Update image src
     $(img).attr("src", clickSRC);
   }
-function displayGifs() {
-    var gifSearch = $(this).attr("data-name");
+function displayGifs(tpc) {
+    var gifSearch = $(tpc).attr("data-name");
     // Storing parts of API call construct
     // var baseURL = "https://api.giphy.com/v1/gifs/search?";
     var baseURL = "https://api.giphy.com/v1/gifs/";
@@ -88,10 +108,12 @@ function displayGifs() {
                   // Saving the image_original_url property
                   var imageUrl = response.data[i].images.fixed_height_still.url;
                   var gifURL = response.data[i].images.fixed_height.url;
+                  var title = toTitleCase(response.data[i].title);
                   // Store this into varable first then we can prepend it. Need to put image into it. 
                   var topicCard = $("<div>").addClass("card col-lg-4 col-md-6 col-xs-12")
                   topicCard.html('<div class="card-body"> \
-                          <h5 class="card-title">'+ gifSearch + '</h5> \
+                          <h5 class="card-title"><strong>'+ gifSearch + '</strong></h5> \
+                          <h5 class="card-title">'+ title + '</h5> \
                           <h6 class="card-subtitle mb-2 text-muted">Rating: ' + response.data[i].rating.toUpperCase() + '</h6> \
                           <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
                           <a href="' + response.data[i].url + '" class="card-link" target="_blank"><i class="fas fa-external-link-alt"></i> Giphy link</a> \
@@ -114,10 +136,12 @@ function displayGifs() {
                 // Saving the image_original_url property
                 var imageUrl = response.data.images.fixed_height_still.url;
                 var gifURL = response.data.images.fixed_height.url;
+                var title = toTitleCase(response.data.title);
                 // Store this into varable first then we can prepend it. Need to put image into it. 
                 var topicCard = $("<div>").addClass("card col-lg-4 col-md-6 col-xs-12")
                 topicCard.html('<div class="card-body"> \
-                        <h5 class="card-title">'+ gifSearch + '</h5> \
+                        <h5 class="card-title"><strong>'+ gifSearch + '</strong></h5> \
+                        <h5 class="card-title">'+ title + '</h5> \
                         <!-- // <h6 class="card-subtitle mb-2 text-muted">Rating: ' + "" + '</h6> \ --> \
                         <img class="card-img-top topicImg" alt="game image" src="' + imageUrl + '"></img> \
                         <a href="' + response.data.url + '" class="card-link" target="_blank"><i class="fas fa-external-link-alt"></i>Giphy link</a> \
@@ -132,6 +156,14 @@ function displayGifs() {
 
   }
 // Function for displaying topic buttons
+function toTitleCase(str) {
+    return str.replace(
+        /\w\S*/g,
+        function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    );
+}
 function renderButtons() {
 
     // Deleting the topic buttons prior to adding new topic button

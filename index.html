@@ -32,7 +32,7 @@
                   <button class="btn btn-outline-secondary rating-btn" data-rating="G" type="button"><strong>G</strong></button>
                   <button class="btn btn-outline-secondary rating-btn" data-rating="PG" type="button"><strong>PG</strong></button>
                   <button class="btn btn-outline-secondary rating-btn" data-rating="PG13" type="button"><strong>PG-13</strong></button>
-                  <button class="btn btn-outline-secondary rating-btn" data-rating="R" type="button"><strong>R</strong></button>  
+                  <button class="btn btn-outline-secondary rating-btn active" data-rating="R" type="button"><strong>R</strong></button>  
                 </div>
                 <select class="custom-select col-4 col-xs-6 border-secondary" id="inputGroupSelect" aria-label="Example select with button addon">
                     <option class="gifLimit" value="10" selected>How many Gifs do you want to see?</option>
@@ -49,6 +49,7 @@
               <input type="text" id="topic-input" class="form-control" placeholder="Add a Game, Yo!">
               <!-- Button triggers new topic to be added -->
               <button id="add-topic" class="btn btn-outline-secondary m-1" type="submit" value="Add It!"><i class="fa fa-plus" aria-hidden="true"></i> Add It! </button>
+              <button class="btn btn-outline-secondary removeTopics-btn" id="remove-topics" data-remove="false" type="button"><i class="fa fa-minus" aria-hidden="true"></i> Removal Off </button>  <label for="remove-topics" style="display: none">Click the buttons above you want to remove from the list.</label>
             </form>
             <!-- This row will handle all of the retrieved articles -->
             <div class="row">
