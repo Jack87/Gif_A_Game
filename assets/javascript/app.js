@@ -1,6 +1,7 @@
 //API Key 8PZUG6VpbkmEyObiRifjjEe2wWO8u09t
 // Initial array of topics.
 var topics = ["Nintendo", "Playstation", "xBox", "PC Gaming", "Blizzard Entertainment", "Rockstar Games", "StarCraft 2", "Diablo III", "GTA5", "Fallout 4", "Overwatch", "Mario", "PacMan", "Tetris", "Space Invadors", "Street Fighter", "Donkey Kong", "Moral Kombat", "Zelda", "Tomb Raider"]
+var gifsToPreloadArray =[];
 var l = 10;
 var r = "r";
 var random = "search?";
@@ -58,7 +59,8 @@ function displayGifs() {
     // var baseURL = "https://api.giphy.com/v1/gifs/search?";
     var baseURL = "https://api.giphy.com/v1/gifs/";
     // var apiKey = "api_key=8PZUG6VpbkmEyObiRifjjEe2wWO8u09t&";
-    var apiKey = "api_key=8101kMpoOkY0OZMCiLrDyGMG8NpAJ4eQ&";
+    // var apiKey = "api_key=8101kMpoOkY0OZMCiLrDyGMG8NpAJ4eQ&";
+    var apiKey = "api_key=kSsEs2WpTg5QFqUOOp5hE8IzuB0PIaOh&";
     var isRandom = random; // https://developers.giphy.com/explorer/
     var q = "q=" + gifSearch + "&";
     var rating= "rating=" + r + "&";
@@ -85,6 +87,7 @@ function displayGifs() {
               for (var i = 0; i < l; i++) {
                   // Saving the image_original_url property
                   var imageUrl = response.data[i].images.fixed_height_still.url;
+                  var gifURL = response.data[i].images.fixed_height.url;
                   // Store this into varable first then we can prepend it. Need to put image into it. 
                   var topicCard = $("<div>").addClass("card col-lg-4 col-md-6 col-xs-12")
                   topicCard.html('<div class="card-body"> \
@@ -96,6 +99,8 @@ function displayGifs() {
                       </div> \
                   </div> ')
                   $("#images").prepend(topicCard);
+                //   console.log(gifURL)
+                  loadGifsToCache(gifURL);
               }
           });
     } else { //Since Random doesn't have a limit parameter and only returns one Gif. Using a loop to retrive the total requested amounts of Gifs. 
@@ -107,7 +112,8 @@ function displayGifs() {
             }).then(function(response) {
                 console.log(response);
                 // Saving the image_original_url property
-                var imageUrl = response.data.images.downsized_still.url;
+                var imageUrl = response.data.images.fixed_height_still.url;
+                var gifURL = response.data.images.fixed_height.url;
                 // Store this into varable first then we can prepend it. Need to put image into it. 
                 var topicCard = $("<div>").addClass("card col-lg-4 col-md-6 col-xs-12")
                 topicCard.html('<div class="card-body"> \
@@ -118,6 +124,8 @@ function displayGifs() {
                         <a href="' + response.data.embed_url + '" class="card-link"><i class="fas fa-code"></i> Share Embed link</a> \
                         </div> ')
                 $("#images").prepend(topicCard);
+                // console.log(gifURL);
+                loadGifsToCache(gifURL);
             });
         }
     };
@@ -168,3 +176,13 @@ function renderButtons() {
         $('#topic-input').val('');
 
     });
+
+function loadGifsToCache(gifToPreload) { // Function to load Gifs to Cache
+    console.log(gifToPreload)
+    var preloadedGIF = $("<img>")
+    .attr("src",  gifToPreload)
+    .attr("class", "gif-img-preloaded")
+    .attr("alt", "preloaded giphy goes here")
+    .attr("style", "display: none");
+    $("#preloaded-giphy-view").append(preloadedGIF);
+} // animated images will now animate quicker once clicked by user
