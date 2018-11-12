@@ -11,6 +11,11 @@ renderButtons()
 // Event listeners for buttons
 $(document).on("click", ".topic-btn", function(){
     if ($("#remove-topics").attr("data-random") == "true") {
+        var index = topics.indexOf($(this).attr("data-name"));
+        if (index > -1) {
+            topics.splice(index, 1);
+        };
+        console.log($(this).attr("data-name") + " was removed.")
         $(this).remove();
     } else {   
         displayGifs(this);

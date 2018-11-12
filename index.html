@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
-    <link rel="stylesheet" href="./assets/css/bootstrap-toggle.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Game to Gif!</title>
 </head>
@@ -52,20 +51,21 @@
               <input type="text" id="topic-input" class="form-control" placeholder="Add a Game, Yo!">
               <!-- Button triggers new topic to be added -->
               <button id="add-topic" class="btn btn-outline-secondary m-1" type="submit" value="Add It!"><i class="fa fa-plus" aria-hidden="true"></i> Add It! </button>
+              <!-- Button toggles between topic removal and search -->
               <button class="btn btn-outline-secondary removeTopics-btn" id="remove-topics" data-remove="false" type="button"><i class="fa fa-minus" aria-hidden="true"></i> Removal Off </button>  <label for="remove-topics" style="display: none">Click the buttons above you want to remove from the list.</label>
             </form>
-            <!-- This row will handle all of the retrieved articles -->
+            <!-- This row will handle all of the retrieved Gifs -->
             <div class="row">
               <div class="col-12">
                 <br>
-                <!-- This card will initially be made up of a card and wells for each of the articles retrieved -->
+                <!-- This card will initially be made up of cards of the Gifs retrieved -->
                 <div class="card">
-                  <!-- card Heading for the retrieved articles box -->
+                  <!-- card Heading for the retrieved Gifs box -->
                   <div class="card-header">
                     <strong>
                       <i class="fas fa-film"></i> Gifs Live Here</strong>
                   </div>
-                  <!-- This main card will hold each of the resulting articles -->
+                  <!-- This main card will hold each of the resulting Gifs -->
                   <div class="card-body row" id="images">
                   </div>
                 </div>
