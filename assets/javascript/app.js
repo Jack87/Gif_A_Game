@@ -154,12 +154,17 @@ function renderButtons() {
         // This line will grab the text from the input box
         var topic = $("#topic-input").val().trim();
         // The topic from the textbox is then added to our array
-        if (topics.indexOf(topic) != -1){
-            alert("That button already exists. Add a different one!")
-            return;
+        var checkExistence = [];
+        for (var i = 0; i < topics.length; i++) {
+            checkExistence.push(topics[i].toLowerCase());
+            if (checkExistence.indexOf(topic.toLowerCase()) != -1){
+                alert("That button already exists. Add a different one!")
+                return;
+            }
         }
         topics.push(topic);
         // calling renderButtons which handles the processing of our topic array
         renderButtons();
+        $('#topic-input').val('');
 
     });
