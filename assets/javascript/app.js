@@ -5,16 +5,14 @@ var gifsToPreloadArray =[];
 var l = 10;
 var r = "r";
 var random = "search?";
-renderButtons()
 
+renderButtons()
 
 // Event listeners for buttons
 $(document).on("click", ".topic-btn", function(){
     if ($("#remove-topics").attr("data-random") == "true") {
         var index = topics.indexOf($(this).attr("data-name"));
-        if (index > -1) {
-            topics.splice(index, 1);
-        };
+        if (index > -1) {topics.splice(index, 1)};
         console.log($(this).attr("data-name") + " was removed.")
         $(this).remove();
     } else {   
@@ -62,7 +60,33 @@ $(document).on("click", "#remove-topics", function(){
     };
     console.log("Remove topics: " + $(removeBtn).attr("data-random"));
 });
-
+// This function handles adding new topic to the topics array and rendering it on screen. 
+$("#add-topic").on("click", function(event) {
+    event.preventDefault();
+    var topic = $("#topic-input").val().trim();
+    console.log(topic);
+    if (topic == ""){
+        alert("Enter something to add it!");
+        $("#topic-input").val('').focus();
+        return;
+    };
+    // This line will grab the text from the input box
+    var topic = $("#topic-input").val().trim();
+    // The topic from the textbox is then added to our array
+    var checkExistence = [];
+    for (var i = 0; i < topics.length; i++) {
+        checkExistence.push(topics[i].toLowerCase());
+        if (checkExistence.indexOf(topic.toLowerCase()) != -1){
+            alert("That button already exists. Add a different one!")
+            $("#topic-input").focus();
+            return;
+        }
+    }
+    topics.push(topic);
+    // calling renderButtons which handles the processing of our topic array
+    renderButtons();
+    $('#topic-input').val('');
+});
 // Toggle Animation of gif
 function toggleAnimate(img) {
     // Grab url of the clicked image
@@ -170,11 +194,9 @@ function toTitleCase(str) {
     );
 }
 function renderButtons() {
-
     // Deleting the topic buttons prior to adding new topic button
     // (this is necessary otherwise we will have repeat buttons)
     $("#buttonsList").empty();
-
         // Looping through the array of topics
         for (var i = 0; i < topics.length; i++) {
             // Then dynamicaly generating buttons for each topic in the array.
@@ -189,31 +211,6 @@ function renderButtons() {
             $("#buttonsList").append(a);
         }
 }
-
-      // This function handles events where one button is clicked
-      $("#add-topic").on("click", function(event) {
-        event.preventDefault();
-        var rateVal = $("#button-addon3").val();
-        console.log(rateVal)
-
-        // This line will grab the text from the input box
-        var topic = $("#topic-input").val().trim();
-        // The topic from the textbox is then added to our array
-        var checkExistence = [];
-        for (var i = 0; i < topics.length; i++) {
-            checkExistence.push(topics[i].toLowerCase());
-            if (checkExistence.indexOf(topic.toLowerCase()) != -1){
-                alert("That button already exists. Add a different one!")
-                return;
-            }
-        }
-        topics.push(topic);
-        // calling renderButtons which handles the processing of our topic array
-        renderButtons();
-        $('#topic-input').val('');
-
-    });
-
 function loadGifsToCache(gifToPreload) { // Function to load Gifs to Cache
     console.log(gifToPreload)
     var preloadedGIF = $("<img>")
